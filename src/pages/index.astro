@@ -1,8 +1,299 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
 ---
 
 <Layout>
-	<h1>Home</h1>
+	<main>
+		<div class="scene">
+			<svg class="house-svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+				<!-- House body -->
+				<!-- Path commands explained:
+					M80 220   -> Move to bottom-left corner (x:80, y:220)
+					L80 120   -> Line to left wall top (x:80, y:120)
+					L200 40   -> Line to roof peak (x:200, y:40)
+					L320 120  -> Line to right wall top (x:320, y:120)
+					L320 220  -> Line to bottom-right corner (x:320, y:220)
+					L80 220   -> Line back to bottom-left to close shape
+				-->
+				<path class="house-body" 
+					d="M80 220 L80 120 L200 40 L320 120 L320 220 L80 220" 
+					fill="#382a2a"/>
+				
+				<!-- Porch cutout -->
+				<path class="porch-wall"
+					d="M260 220 L260 140 L320 140 L320 220 Z"
+					fill="#232323"/>
+				
+				<!-- Door -->
+				<path class="door"
+					d="M270 160 L290 160 L290 210 L270 210 Z"
+					fill="#1a1a1a"/>
+				<circle cx="285" cy="185" r="2" fill="#444"/>
+				
+				<!-- Stairs -->
+				<g class="stairs">
+					<path d="M260 220 L320 220 L315 225 L255 225 Z" fill="#3d3d3d"/>
+					<path d="M265 225 L325 225 L320 230 L260 230 Z" fill="#3d3d3d"/>
+					<path d="M270 230 L330 230 L325 235 L265 235 Z" fill="#3d3d3d"/>
+				</g>
+				
+				<!-- Window with glow effect -->
+				<div class="window"></div>
+
+				<!-- Cat (outside SVG for better animation control) -->
+				<div class="cat">
+					<div class="cat-head"></div>
+					<div class="cat-body"></div>
+					<div class="cat-tail"></div>
+				</div>
+
+				<!-- Trees -->
+				<div class="trees">
+					<div class="tree tree-1">
+						<div class="trunk"></div>
+						<div class="leaves"></div>
+					</div>
+					<div class="tree tree-2">
+						<div class="trunk"></div>
+						<div class="leaves"></div>
+					</div>
+					<div class="tree tree-3">
+						<div class="trunk"></div>
+						<div class="leaves"></div>
+					</div>
+					<div class="tree tree-4">
+						<div class="trunk"></div>
+						<div class="leaves"></div>
+					</div>
+					<div class="tree tree-5">
+						<div class="trunk"></div>
+						<div class="leaves"></div>
+					</div>
+				</div>
+			</svg>
+
+			<!-- Window with glow effect -->
+			<div class="window"></div>
+
+			<!-- Cat (outside SVG for better animation control) -->
+			<div class="cat">
+				<div class="cat-head"></div>
+				<div class="cat-body"></div>
+				<div class="cat-tail"></div>
+			</div>
+
+			<!-- Trees -->
+			<div class="trees">
+				<div class="tree tree-1">
+					<div class="trunk"></div>
+					<div class="leaves"></div>
+				</div>
+				<div class="tree tree-2">
+					<div class="trunk"></div>
+					<div class="leaves"></div>
+				</div>
+				<div class="tree tree-3">
+					<div class="trunk"></div>
+					<div class="leaves"></div>
+				</div>
+				<div class="tree tree-4">
+					<div class="trunk"></div>
+					<div class="leaves"></div>
+				</div>
+				<div class="tree tree-5">
+					<div class="trunk"></div>
+					<div class="leaves"></div>
+				</div>
+			</div>
+		</div>
+	</main>
 </Layout>
+
+<style>
+	main {
+		min-height: 100vh;
+		display: grid;
+		place-items: center;
+		background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 100%);
+	}
+
+	.scene {
+		position: relative;
+		width: 100%;
+		height: 80vh;
+		max-width: 1200px;
+	}
+
+	.house-svg {
+		position: absolute;
+		width: 500px;
+		height: 400px;
+		left: 50%;
+		bottom: 20%;
+		transform: translateX(-50%);
+	}
+
+	.window {
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		background: #e6cf4b;
+		left: calc(50% - 20px);
+		bottom: calc(25% + 120px);
+		animation: windowGlow 4s ease-in-out infinite;
+		box-shadow: 0 0 20px #e6cf4b;
+	}
+
+	.cat {
+		position: absolute;
+		bottom: calc(20% + 85px);
+		left: calc(50% + 60px);
+		width: 30px;
+		height: 15px;
+		transform: skewY(-5deg);
+	}
+
+	.cat-body {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: #000;
+		border-radius: 10px 4px 4px 10px;
+	}
+
+	.cat-head {
+		position: absolute;
+		width: 12px;
+		height: 10px;
+		background: #000;
+		border-radius: 6px 4px 4px 4px;
+		left: -6px;
+		top: -2px;
+	}
+
+	.cat-head::before {
+		content: '';
+		position: absolute;
+		width: 4px;
+		height: 4px;
+		background: #e6cf4b;
+		border-radius: 50%;
+		right: 2px;
+		top: 3px;
+		animation: catBlink 4s ease-in-out infinite;
+	}
+
+	.cat-head::after {
+		content: '';
+		position: absolute;
+		top: -4px;
+		width: 4px;
+		height: 8px;
+		background: #000;
+		clip-path: polygon(0 50%, 50% 0, 100% 50%);
+	}
+
+	.cat-head::after {
+		left: 2px;
+		transform: rotate(-10deg);
+	}
+
+	.cat-head::after {
+		left: 6px;
+		transform: rotate(10deg);
+	}
+
+	.cat-tail {
+		position: absolute;
+		width: 3px;
+		height: 15px;
+		background: #000;
+		right: -2px;
+		bottom: 5px;
+		transform-origin: bottom;
+		border-radius: 5px;
+		animation: tailWag 2s ease-in-out infinite;
+	}
+
+	.tree {
+		position: absolute;
+		bottom: 20%;
+	}
+
+	.tree-1 { left: 12%; transform: scale(1.2) rotate(-2deg); }
+	.tree-2 { left: 68%; transform: scale(0.9) rotate(1deg); }
+	.tree-3 { left: 83%; transform: scale(1.1) rotate(-1deg); }
+	.tree-4 { left: 25%; transform: scale(0.85) rotate(2deg); }
+	.tree-5 { left: 45%; transform: scale(1.15) rotate(-1.5deg); }
+
+	.trunk {
+		width: 18px;
+		height: 200px;
+		background: #ffffff;
+		position: relative;
+		z-index: 1;
+		border-radius: 2px;
+		transform-origin: bottom center;
+	}
+
+	.trunk::after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: 
+			radial-gradient(
+				ellipse at center,
+				rgba(0,0,0,0.7) 0%,
+				transparent 50%
+			);
+		background-size: 24px 12px;
+		background-position: 0 0;
+		opacity: 0.8;
+		border-radius: inherit;
+	}
+
+	.leaves {
+		position: absolute;
+		width: 140px;
+		height: 200px;
+		background: #567d46;
+		bottom: 160px;
+		left: 50%;
+		transform: translateX(-50%);
+		border-radius: 70% 70% 40% 40%;
+		animation: sway 6s ease-in-out infinite;
+		transform-origin: bottom center;
+		opacity: 0.9;
+	}
+
+	.tree-2 .leaves { animation-delay: -0.5s; }
+	.tree-3 .leaves { animation-delay: -1s; }
+
+	@keyframes windowGlow {
+		0%, 100% { opacity: 0.8; box-shadow: 0 0 20px #e6cf4b; }
+		50% { opacity: 1; box-shadow: 0 0 30px #e6cf4b; }
+	}
+
+	@keyframes sway {
+		0%, 100% { transform: translateX(-50%) rotate(0deg); }
+		50% { transform: translateX(-50%) rotate(10deg); }
+	}
+
+	@keyframes tailWag {
+		0%, 100% { transform: rotate(0deg); }
+		25% { transform: rotate(20deg); }
+		75% { transform: rotate(-20deg); }
+	}
+
+	@keyframes catBlink {
+		0%, 45%, 55%, 100% { 
+			height: 4px;
+			transform: scaleY(1);
+		}
+		50% { 
+			height: 1px;
+			transform: scaleY(0.3);
+		}
+	}
+</style>
